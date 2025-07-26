@@ -1,0 +1,40 @@
+name: Daily Connpass Event Notification
+
+on:
+  schedule:
+    # 毎日午前9時（JST）に実行
+    - cron: '0 0 * * *'  # UTC 0:00 = JST 9:00
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  notify-events:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4
+        
+    - name: Run notification script
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        cd pdm-event-notice
+        python3 main.py
+        
+    - name: Commit and push notified IDs
+      run: |
+        cd pdm-event-notice
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add notified_event_ids.txt
+        git commit -m "Update notified event IDs" || echo "No changes to commit"
+        git push 

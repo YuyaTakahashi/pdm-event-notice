@@ -1,0 +1,27 @@
+=== 日次実行開始: Sat Jul 26 17:48:42 JST 2025 ===
+/Users/takahashi_yuya/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+検索URL: https://connpass.com/search/?q=PdM&start_from=2025/07/26&start_to=2025/08/09&prefectures=tokyo&selectItem=tokyo&sort=
+イベントリスト要素が見つかりました
+イベントボックス数: 15
+取得したイベント: {'title': 'QAの理想を語らNight！', 'url': 'https://henry.connpass.com/event/361765/', 'event_id': '361765', 'date': '2025 07/30 （水）19:00〜', 'place': '東京都千代田区九段北１丁目８−１０ 住友不動産九段ビル 9F', 'thumbnail': 'https://media.connpass.com/thumbs/5e/df/5edf603fe16baf94b700b3bd028a20d6.png'}
+取得したイベント: {'title': 'デザイナー×PMフィッシュボウル 〜分担・協業・越境むずくない？編〜', 'url': 'https://product-people-united.connpass.com/event/358694/', 'event_id': '358694', 'date': '2025 07/30 （水）19:00〜', 'place': '〒108-0073 東京都港区三田３丁目１１−２４ 国際興業三田第2ビル 9階', 'thumbnail': 'https://media.connpass.com/thumbs/07/0d/070d194ebba96617a780ecb8457f1758.png'}
+取得したイベント: {'title': '【特別対談】レバテックCAが語る「評価されるQA」× グロービスQA「活躍の秘訣」', 'url': 'https://globis.connpass.com/event/360665/', 'event_id': '360665', 'date': '2025 07/30 （水）19:00〜', 'place': '東京都千代田区二番町5-1(住友不動産麹町ビル)', 'thumbnail': 'https://media.connpass.com/thumbs/ce/b8/ceb87dbb052f5bb5fef864804a26be3e.png'}
+取得したイベント: {'title': '【増枠】DeNA・令和トラベル・スマートバンク・カウシェでの開発における生成AIフル活用事例', 'url': 'https://kauche.connpass.com/event/358309/', 'event_id': '358309', 'date': '2025 07/30 （水）19:00〜', 'place': '東京都渋谷区桜丘町２０−１ 渋谷インフォスタワー 15F', 'thumbnail': 'https://media.connpass.com/thumbs/fd/f5/fdf56533b8d7ee46a1a6f196a1bd3c3c.png'}
+取得したイベント: {'title': '生成AI、実際どう？【現場エンジニアたちのぶっちゃけトークミートアップ】', 'url': 'https://find.connpass.com/event/360680/', 'event_id': '360680', 'date': '2025 07/31 （木）18:00〜', 'place': '東京都新宿区西新宿6-8-1', 'thumbnail': 'https://media.connpass.com/thumbs/bc/1e/bc1e20bf2e47906f2c84b1750d1bbf9b.png'}
+取得したイベント: {'title': 'PMM Insight #2\u3000〜PdMと語る！プロダクトアウト製品でのファン顧客づくりの苦労と成功〜', 'url': 'https://andpad-productmarketing.connpass.com/event/362018/', 'event_id': '362018', 'date': '2025 07/31 （木）19:30〜', 'place': '東京都千代田区神田練塀町300 住友不動産秋葉原駅前ビル 9階', 'thumbnail': 'https://media.connpass.com/thumbs/12/f7/12f7c98dc057eeaca02ccb18c563bdea.png'}
+取得したイベント: {'title': 'レバテック Meetup ～プロダクトを育てるPdMのキャリアの描き方～', 'url': 'https://levtechcareer.connpass.com/event/362330/', 'event_id': '362330', 'date': '2025 08/04 （月）19:00〜', 'place': '東京都渋谷区渋谷２丁目２４−１２ ２５F', 'thumbnail': 'https://media.connpass.com/thumbs/8b/d0/8bd0c419fb1b1be31a328f8db73d1d38.png'}
+取得したイベント: {'title': '【増枠】経営者・事業責任者に必要な力とは！？ぶっちゃけトーク！ 〜AndL Career Talk〜', 'url': 'https://andl.connpass.com/event/362334/', 'event_id': '362334', 'date': '2025 08/04 （月）19:00〜', 'place': '東京都渋谷区桜丘町9番8号 KN渋谷3 4階', 'thumbnail': 'https://media.connpass.com/thumbs/8e/0c/8e0cd38bc2e42327f249077f7420ea23.png'}
+取得したイベント: {'title': '#03 - 夏のLT大会！7分で届ける、うちのデザイン組織の話', 'url': 'https://design-team-no-chi.connpass.com/event/360269/', 'event_id': '360269', 'date': '2025 08/04 （月）19:30〜', 'place': '141-0032 東京都品川区大崎1-2-2 アートヴィレッジ大崎セントラルタワー5階', 'thumbnail': 'https://media.connpass.com/thumbs/83/98/83986cc5ccb1dacba5aef52dc8735e4d.png'}
+取得したイベント: {'title': '生成AI時代のプロダクトチーム構築：非エンジニアも巻き込む開発フローとチーム設計', 'url': 'https://genda.connpass.com/event/362130/', 'event_id': '362130', 'date': '2025 08/05 （火）19:00〜', 'place': '東京都中央区築地1-13-1 (銀座松竹ビル 5F)', 'thumbnail': 'https://media.connpass.com/thumbs/63/86/63863e8f1c849b1679a9f73ac5461af5.png'}
+取得したイベント: {'title': '【ライブデモ＆全フロー実演】AI品質向上の全体像が超具体でわかる！ LLMOps 実践会', 'url': 'https://connpass.com/event/362584/', 'event_id': '362584', 'date': '2025 08/05 （火）19:30〜', 'place': '〒150-0031 東京都渋谷区桜丘町２４−１ 橋本ビル 6階', 'thumbnail': 'https://media.connpass.com/thumbs/53/d4/53d4c00d5d74792f6cab6ecf79662ae8.png'}
+取得したイベント: {'title': 'DMMのデザインシステム：経験主義に頼らないコラボレーションパターン | UI＋FE合流点', 'url': 'https://gaji-lt.connpass.com/event/361853/', 'event_id': '361853', 'date': '2025 08/06 （水）19:00〜', 'place': '東京都港区六本木三丁目2番1号 (住友不動産六本木グランドタワー)', 'thumbnail': 'https://media.connpass.com/thumbs/5f/e9/5fe9a7407f7af96a7937bde03db2d1e3.png'}
+取得したイベント: {'title': '生成AI時代のPdM - 活用と未来戦略', 'url': 'https://timeedev.connpass.com/event/362307/', 'event_id': '362307', 'date': '2025 08/06 （水）19:15〜', 'place': '〒105-7135 東京都港区東新橋１丁目５−２ 汐留シティセンタ 35階', 'thumbnail': 'https://media.connpass.com/thumbs/84/ae/84aef74eead98dbe882453df65dfc73f.png'}
+取得したイベント: {'title': 'ビジネス×PMフィッシュボウル 〜信頼関係の構築とお互いへの期待値の理想とリアル編〜', 'url': 'https://product-people-united.connpass.com/event/360238/', 'event_id': '360238', 'date': '2025 08/07 （木）19:00〜', 'place': '〒108-0073 東京都港区三田３丁目１１−２４ 国際興業三田第2ビル 9階', 'thumbnail': 'https://media.connpass.com/thumbs/5e/ec/5eecf0881fbd852a07231d62d6784f4b.png'}
+取得したイベント: {'title': '生成AI活用で開発生産性を爆上げNight', 'url': 'https://contrea.connpass.com/event/360975/', 'event_id': '360975', 'date': '2025 08/08 （金）19:00〜', 'place': '東京都新宿区西新宿２丁目６−１ 新宿住友ビル 18階', 'thumbnail': 'https://media.connpass.com/thumbs/14/ac/14ac6df9f0d234b34f5caa9f8e55061a.png'}
+通知済みID数: 15
+取得したイベント数: 15
+新規イベント数: 0
+新規イベントはありませんでした。
+=== 実行成功: Sat Jul 26 17:48:44 JST 2025 ===
+

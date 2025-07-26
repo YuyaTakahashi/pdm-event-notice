@@ -80,6 +80,14 @@ def fetch_events_from_search_url(search_url):
         title = title_tag.get_text(strip=True) if title_tag else None
         url = title_tag['href'] if title_tag and title_tag.has_attr('href') else None
         
+        # URLからイベントIDを抽出
+        event_id = None
+        if url:
+            import re
+            match = re.search(r'/event/(\d+)/', url)
+            if match:
+                event_id = match.group(1)
+        
         # 日時の取得
         date_parts = []
         if schedule_area:
@@ -103,6 +111,7 @@ def fetch_events_from_search_url(search_url):
         event_info = {
             'title': title,
             'url': url,
+            'event_id': event_id,
             'date': date_str,
             'place': place,
             'thumbnail': thumbnail

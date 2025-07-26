@@ -6,20 +6,18 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 from connpass import fetch_events_from_search_url
 import datetime
-import hashlib
 
 # --- 設定項目 ---
-# GitHubのSecretsからWebhook URLを読み込む
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
-
-
-# 検索キーワードと検索タイプ
-# AND検索: ["Python", "AI"] / OR検索: ["Python,AI"] など
-SEARCH_KEYWORDS = ["Python", "機械学習", "AI"]
-SEARCH_TYPE = "OR" # "AND" または "OR"
-
-# 通知済みイベントIDを保存するファイル
-NOTIFIED_IDS_FILE = "pdm-event-notice/notified_event_ids.txt"
+# サーバー環境用の設定を読み込み
+try:
+    from config import SLACK_WEBHOOK_URL, NOTIFIED_IDS_FILE, SEARCH_KEYWORD, SEARCH_DAYS, SEARCH_PREFECTURES
+except ImportError:
+    # ローカル環境用のデフォルト設定
+    SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+    NOTIFIED_IDS_FILE = "notified_event_ids.txt"
+    SEARCH_KEYWORD = "PdM"
+    SEARCH_DAYS = 14
+    SEARCH_PREFECTURES = "tokyo"
 # -----------------
 
 def get_notified_ids():
@@ -118,35 +116,52 @@ def fetch_new_events():
         print(f"JSONデコードエラー: {e}")
         print(f"Response Text: {response.text[:500]}...")
 
-def url_to_hash(url):
-    """URLをSHA256ハッシュ値に変換"""
-    return hashlib.sha256(url.encode('utf-8')).hexdigest()
+def get_event_id_from_url(url):
+    """URLからイベントIDを抽出"""
+    import re
+    match = re.search(r'/event/(\d+)/', url)
+    return match.group(1) if match else None
 
 def post_scraped_event_to_slack(event):
-    """スクレイピングで取得したイベント情報をSlackに通知（サムネイル画像対応）"""
-    message = f"""
-    新しいconnpassイベントが公開されました！ :tada:
-    *<{event['url']}|{event['title']}>*
-    *日時*: {event['date']}
-    *場所*: {event['place']}
-    """
-    if event.get('thumbnail'):
+    """スクレイピングで取得したイベント情報をSlackに通知（OGP画像対応）"""
+    from ogp_extractor import extract_ogp_image
+    
+    # OGP画像を取得
+    ogp_image = extract_ogp_image(event['url'])
+    
+    if ogp_image:
+        # OGP画像がある場合は、ブロック構造で大きな画像を表示
         payload = {
             "blocks": [
                 {
-                    "type": "image",
-                    "image_url": event['thumbnail'],
-                    "alt_text": event['title']
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn", 
+                        "text": f"新しいconnpassイベントが公開されました！ :tada:\n*<{event['url']}|{event['title']}>*\n*日時*: {event['date']}\n*場所*: {event['place']}"
+                    }
                 },
                 {
-                    "type": "section",
-                    "text": {"type": "mrkdwn", "text": message}
+                    "type": "image",
+                    "image_url": ogp_image,
+                    "alt_text": event['title']
                 }
             ]
         }
     else:
+        # OGP画像がない場合は、テキストのみ
+        message = f"""
+        新しいconnpassイベントが公開されました！ :tada:
+        *<{event['url']}|{event['title']}>*
+        *日時*: {event['date']}
+        *場所*: {event['place']}
+        """
         payload = {"text": message}
-    requests.post(SLACK_WEBHOOK_URL, data=json.dumps(payload))
+    
+    print(f"Slack通知を送信中: {event['title']}")
+    response = requests.post(SLACK_WEBHOOK_URL, data=json.dumps(payload))
+    print(f"Slack通知レスポンス: {response.status_code}")
+    if response.status_code != 200:
+        print(f"Slack通知エラー: {response.text}")
 
 def fetch_and_notify_scraped_events(search_url):
     """検索URLからイベントをスクレイピングし、新規イベントのみSlack通知（notified_event_ids.txtで管理）"""
@@ -154,7 +169,7 @@ def fetch_and_notify_scraped_events(search_url):
     notified_ids = get_notified_ids()
     print(f"通知済みID数: {len(notified_ids)}")
     print(f"取得したイベント数: {len(events)}")
-    new_events = [e for e in events if e['url'] and url_to_hash(e['url']) not in notified_ids]
+    new_events = [e for e in events if e['event_id'] and e['event_id'] not in notified_ids]
     print(f"新規イベント数: {len(new_events)}")
     if not new_events:
         print("新規イベントはありませんでした。")
@@ -162,7 +177,7 @@ def fetch_and_notify_scraped_events(search_url):
     for event in new_events:
         print(f"新規イベントを発見: {event['title']}")
         post_scraped_event_to_slack(event)
-        notified_ids.add(url_to_hash(event['url']))
+        notified_ids.add(event['event_id'])
     save_notified_ids(notified_ids)
     print(f"処理完了。{len(new_events)}件の新規イベントを通知しました。")
 
@@ -170,11 +185,11 @@ if __name__ == "__main__":
     # API経由の通知（従来）
     # fetch_new_events()
 
-    # 検索URLを実行日から2ヶ月後までで自動生成
+    # 検索URLを実行日から設定された期間後までで自動生成
     today = datetime.date.today()
-    two_months_later = today + datetime.timedelta(days=62)  # 2ヶ月=約62日
+    end_date = today + datetime.timedelta(days=SEARCH_DAYS)
     start_str = today.strftime("%Y/%m/%d")
-    end_str = two_months_later.strftime("%Y/%m/%d")
-    search_url = f"https://connpass.com/search/?q=PdM&start_from={start_str}&start_to={end_str}&prefectures=tokyo&selectItem=tokyo&sort="
+    end_str = end_date.strftime("%Y/%m/%d")
+    search_url = f"https://connpass.com/search/?q={SEARCH_KEYWORD}&start_from={start_str}&start_to={end_str}&prefectures={SEARCH_PREFECTURES}&selectItem={SEARCH_PREFECTURES}&sort="
     print(f"検索URL: {search_url}")
     fetch_and_notify_scraped_events(search_url)
