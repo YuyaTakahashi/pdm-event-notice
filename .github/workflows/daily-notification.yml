@@ -47,12 +47,10 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-        cd pdm-event-notice
         python3 main.py
         
     - name: Commit and push notified IDs
       run: |
-        cd pdm-event-notice
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add notified_event_ids.txt
