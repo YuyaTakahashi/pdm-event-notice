@@ -129,6 +129,7 @@ def post_scraped_event_to_slack(event):
     # OGP画像を取得
     ogp_image = extract_ogp_image(event['url'])
     
+    mention = "<!here> "
     if ogp_image:
         # OGP画像がある場合は、ブロック構造で大きな画像を表示
         payload = {
@@ -137,7 +138,7 @@ def post_scraped_event_to_slack(event):
                     "type": "section",
                     "text": {
                         "type": "mrkdwn", 
-                        "text": f"新しいconnpassイベントが公開されました！ :tada:\n*<{event['url']}|{event['title']}>*\n*日時*: {event['date']}\n*場所*: {event['place']}"
+                        "text": f"{mention}新しいconnpassイベントが公開されました！ :tada:\n*<{event['url']}|{event['title']}>*\n*日時*: {event['date']}\n*場所*: {event['place']}"
                     }
                 },
                 {
@@ -150,7 +151,7 @@ def post_scraped_event_to_slack(event):
     else:
         # OGP画像がない場合は、テキストのみ
         message = f"""
-        新しいconnpassイベントが公開されました！ :tada:
+        <!here> 新しいconnpassイベントが公開されました！ :tada:
         *<{event['url']}|{event['title']}>*
         *日時*: {event['date']}
         *場所*: {event['place']}
